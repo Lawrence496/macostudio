@@ -6,7 +6,7 @@ class Command(BaseCommand):
     help = 'Fetch and update YouTube trailers for movies in the database'
 
     def handle(self, *args, **kwargs):
-        youtube_api_key = 'AIzaSyDW2EGdzyWIS8vCNCfPIsMEb7KAfZh3FG8'
+        youtube_api_key = '********************************'
         youtube = build('youtube', 'v3', developerKey=youtube_api_key)
         
         # Fetching all movies from the database
