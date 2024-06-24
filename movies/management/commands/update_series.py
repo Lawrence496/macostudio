@@ -8,12 +8,11 @@ class Command(BaseCommand):
     help = 'Updating ratings and genres for Series from TMDb'
 
     def handle(self, *args, **kwargs):
-        api_key = '***********************'
+        api_key = '2af8f53d7614f389368f9ee77ab3d464'
         series = Series.objects.all()
 
         for series_obj in series:
             try:
-                # Fetch series details from TMDb API
                 url = f'https://api.themoviedb.org/3/tv/{series_obj.api_id}?api_key={api_key}'
                 response = requests.get(url)
                 if response.status_code == 200:
@@ -25,13 +24,12 @@ class Command(BaseCommand):
 
                     genres = data.get('genres', [])
                     if genres:
-                        series_obj.categories.clear()  # Clear existing genres
+                        series_obj.categories.clear() 
                         for genre in genres:
                             genre_name = genre.get('name')
                             category_obj, created = Category.objects.get_or_create(category=genre_name)
                             series_obj.categories.add(category_obj)
 
-                    # Save updated series object
                     series_obj.save()
 
                     self.stdout.write(self.style.SUCCESS(f"Updated data for {series_obj.title}"))

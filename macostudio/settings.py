@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'movies.middleware.CustomAuthenticationMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'movies.middleware.TimezoneMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -64,6 +65,7 @@ MIDDLEWARE = [
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Other settings...
 
@@ -93,8 +95,12 @@ WSGI_APPLICATION = 'macostudio.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+         'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'AtrHGyrMRCkyZFTZEYMtfgSKFzfeEcqY',
+        'HOST': 'roundhouse.proxy.rlwy.net',
+        'PORT': '49822',
     }
 }
 
