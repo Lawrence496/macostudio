@@ -25,12 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-23f+e=s!9hfv4m+ki_$+v$#0il857&nang0ll8*4dcw43-r27d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://macostudio.up.railway.app/']
+ALLOWED_HOSTS = ['macostudio.up.railway.app']
 
-BASE_URL = 'http://localhost:8000/'
-
+BASE_URL = 'macostudio.up.railway.app'
 
 # Application definition
 
