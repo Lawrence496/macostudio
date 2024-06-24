@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-23f+e=s!9hfv4m+ki_$+v$#0il857&nang0ll8*4dcw43-r27d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['macostudio.up.railway.app']
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'pages',
     'movies',
     'mathfilters',
+    'whitenoise',
     'rest_framework',
     'django.contrib.humanize',
     'django.contrib.admin',
@@ -51,7 +52,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'movies.middleware.CustomAuthenticationMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'movies.middleware.TimezoneMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
