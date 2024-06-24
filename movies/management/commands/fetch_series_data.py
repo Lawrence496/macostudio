@@ -5,10 +5,10 @@ from movies.models import Movies, Series, Episode
 import requests
 
 class Command(BaseCommand):
-    help = 'Fetch TV Series data from TMDb and save it to the database'
+    help = 'Fetching TV Series data from TMDb and save it to the database'
 
     def handle(self, *args, **kwargs):
-        api_key = '2af8f53d7614f389368f9ee77ab3d464'  # Replace with your actual TMDb API key
+        api_key = '******************************' 
         tv_series = Movies.objects.filter(movie_categories__iexact='TV Series')
 
         for movie in tv_series:
