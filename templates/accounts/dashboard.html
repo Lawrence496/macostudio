@@ -1,0 +1,879 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section class="section section--first section--bg" data-bg=" {% static "img/section/section.jpg" %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section__wrap">
+                    <!-- section title -->
+                    <h2 class="section__title">Profile</h2>
+                    <!-- end section title -->
+
+                    <!-- breadcrumb -->
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb__item"><a href="{% url "index" %}">Home</a></li>
+                        <li class="breadcrumb__item breadcrumb__item--active">Profile</li>
+                    </ul>
+                    <!-- end breadcrumb -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- content -->
+<section class="content__main">
+    <div class="content__box">
+        <div class="container profile__container">
+            <div class="row">
+                <div class="col-12">
+                    {% include "messages.html" %}
+                    <div class="profile">
+                        <div class="profile__user">
+                            <div class="profile__avatar">
+                                <img src="{% static "img/user.png" %}" alt="">
+                            </div>
+                            <div class="profile__meta">
+                                <h3>{{user.username}}</h3>
+                                <span>Email: {{user.email}}</span>
+                            </div>
+                        </div>
+
+                        <button class="profile__logout" type="button"><a href="javascript: {document.getElementById('signout').submit()}">
+                            <span>Sign out</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"></path></svg>
+                            <form action="{% url "signout" %}" method="POST" id="signout">
+                                {% csrf_token %}
+                                <input type="hidden" />
+                            </form>
+                        </a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- content title -->
+                    
+                    <!-- end content title -->
+
+                    <!-- content tabs nav -->
+                    <ul class="nav nav-tabs content__tabs" id="content__tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">PROFILE</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">RECENTLY WATCHED</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">SETTINGS</a>
+                        </li>
+
+                    </ul>
+                    <!-- end content tabs nav -->
+
+                    <!-- content mobile tabs nav -->
+                    <div class="content__mobile-tabs" id="content__mobile-tabs">
+                        <div class="content__mobile-tabs-btn dropdown-toggle" role="navigation" id="mobile-tabs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <input type="button" value="Profile">
+                            <span></span>
+                        </div>
+
+                        <div class="content__mobile-tabs-menu dropdown-menu" aria-labelledby="mobile-tabs">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item"><a class="nav-link active" id="1-tab" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">PROFILE</a></li>
+
+                                <li class="nav-item"><a class="nav-link" id="2-tab" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">RECENTLY WATCHED</a></li>
+
+                                <li class="nav-item"><a class="nav-link" id="3-tab" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">SETTINGS</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- end content mobile tabs nav -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- content tabs -->
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
+                <div class="row row--grid">
+                    <!-- stats -->
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="stats">
+                            <span>Movies Watched</span>
+                            <p><b>{{total_movies_watched}}</b></p>
+                            <svg fill="#161b85" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80.667 80.667" xml:space="preserve" stroke="#161b85"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M67.975,0H12.693C7.476,0,3.231,4.245,3.231,9.462v61.743c0,5.218,4.245,9.462,9.462,9.462h55.282 c5.218,0,9.462-4.244,9.462-9.462V9.462C77.436,4.245,73.193,0,67.975,0z M71.436,71.205c0,1.909-1.553,3.462-3.462,3.462H12.693 c-1.909,0-3.462-1.553-3.462-3.462V9.462C9.231,7.553,10.784,6,12.693,6h55.282c1.909,0,3.462,1.553,3.462,3.462V71.205z"></path> <path d="M54.144,12.397H26.522c-1.627,0-2.945,1.319-2.945,2.945v17.137c0,1.627,1.318,2.945,2.945,2.945h27.621 c1.627,0,2.945-1.318,2.945-2.945V15.343C57.09,13.717,55.771,12.397,54.144,12.397z M51.09,29.425H29.577V18.397h21.512 C51.089,18.397,51.089,29.425,51.09,29.425z"></path> <path d="M54.144,45.244H26.522c-1.627,0-2.945,1.319-2.945,2.945v17.137c0,1.627,1.318,2.945,2.945,2.945h27.621 c1.627,0,2.945-1.318,2.945-2.945V48.189C57.09,46.563,55.771,45.244,54.144,45.244z M51.09,62.272H29.577V51.244h21.512 C51.089,51.244,51.089,62.272,51.09,62.272z"></path> <rect x="13.25" y="13.148" width="5.564" height="6"></rect> <rect x="13.25" y="25.31" width="5.564" height="6"></rect> <rect x="13.25" y="37.47" width="5.564" height="6"></rect> <rect x="13.25" y="49.63" width="5.564" height="6"></rect> <rect x="13.25" y="61.791" width="5.564" height="6"></rect> <rect x="61.891" y="13.148" width="5.564" height="6"></rect> <rect x="61.891" y="25.31" width="5.564" height="6"></rect> <rect x="61.891" y="37.47" width="5.564" height="6"></rect> <rect x="61.891" y="49.63" width="5.564" height="6"></rect> <rect x="61.891" y="61.791" width="5.564" height="6"></rect> </g> </g></svg>
+                        </div>
+                    </div>
+                    <!-- end stats -->
+
+                    <!-- stats -->
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="stats">
+                            <span>Premium plan</span>
+                            <p>$34.99<sub>/month</sub></p>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9,10a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V11A1,1,0,0,0,9,10Zm12,1a1,1,0,0,0,1-1V6a1,1,0,0,0-1-1H3A1,1,0,0,0,2,6v4a1,1,0,0,0,1,1,1,1,0,0,1,0,2,1,1,0,0,0-1,1v4a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V14a1,1,0,0,0-1-1,1,1,0,0,1,0-2ZM20,9.18a3,3,0,0,0,0,5.64V17H10a1,1,0,0,0-2,0H4V14.82A3,3,0,0,0,4,9.18V7H8a1,1,0,0,0,2,0H20Z"/></svg>
+                        </div>
+                    </div>
+                    <!-- end stats -->
+
+                    <!-- stats -->
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="stats">
+                            <span>Date Joined</span>
+                            <p>{{date_joined|date:"F j, Y"}}</p>
+                            <svg fill="#161b85" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" enable-background="new 0 0 52 52" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M43.6,6.8h-4V5.2c0-1.8-1.4-3.2-3.2-3.2c-1.8,0-3.2,1.4-3.2,3.2v1.6H18.8V5.2c0-1.8-1.4-3.2-3.2-3.2 s-3.2,1.4-3.2,3.2v1.6h-4c-2.6,0-4.8,2.2-4.8,4.8v1.6c0,0.9,0.7,1.6,1.6,1.6h41.6c0.9,0,1.6-0.7,1.6-1.6v-1.6 C48.4,9,46.2,6.8,43.6,6.8z"></path> <path d="M46.8,19.6H5.2c-0.9,0-1.6,0.7-1.6,1.6v24c0,2.6,2.2,4.8,4.8,4.8h35.2c2.6,0,4.8-2.2,4.8-4.8v-24 C48.4,20.3,47.7,19.6,46.8,19.6z M26,46.7c-6.6,0-11.9-5.4-11.9-11.9c0-6.6,5.4-11.9,11.9-11.9s11.9,5.4,11.9,11.9 C37.9,41.4,32.6,46.7,26,46.7z"></path> <path d="M27.2,34.3v-5.1c0-0.4-0.4-0.8-0.8-0.8h-0.8c-0.4,0-0.8,0.4-0.8,0.8v5.6c0,0.3,0.1,0.6,0.4,0.8l3.8,3.8 c0.3,0.3,0.8,0.3,1.1,0l0.6-0.6c0.3-0.3,0.3-0.8,0-1.1L27.2,34.3z"></path> </g></svg>
+                        </div>
+                    </div>
+                    <!-- end stats -->
+
+                    <!-- stats -->
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="stats">
+                            <span>Your reviews</span>
+                            <p>{{total_reviews}}</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-xl-6">
+                        <div class="dashbox">
+                            <div class="dashbox__title">
+                                <h3><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,2a1,1,0,0,0-1,1V5H18V3a1,1,0,0,0-2,0V4H8V3A1,1,0,0,0,6,3V5H4V3A1,1,0,0,0,2,3V21a1,1,0,0,0,2,0V19H6v2a1,1,0,0,0,2,0V20h8v1a1,1,0,0,0,2,0V19h2v2a1,1,0,0,0,2,0V3A1,1,0,0,0,21,2ZM6,17H4V15H6Zm0-4H4V11H6ZM6,9H4V7H6Zm10,9H8V13h8Zm0-7H8V6h8Zm4,6H18V15h2Zm0-4H18V11h2Zm0-4H18V7h2Z"/></svg> Movies for you</h3>
+
+                                <div class="dashbox__wrap">
+                                    <a class="dashbox__refresh" href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,11a1,1,0,0,0-1,1,8.05,8.05,0,1,1-2.22-5.5h-2.4a1,1,0,0,0,0,2h4.53a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4.77A10,10,0,1,0,22,12,1,1,0,0,0,21,11Z"></path></svg></a>
+                                    <a class="dashbox__more" href="catalog.html">View All</a>
+                                </div>
+                            </div>
+
+                            <div class="dashbox__table-wrap dashbox__table-wrap--1">
+                                <table class="main__table main__table--dash">
+                                    <thead>
+                                        <tr>
+                                            <th>TITLE</th>
+                                            <th>CATEGORY</th>
+                                            <th>RATING</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for movies in recommended_movies|slice:":6" %}
+                                        <tr>
+                                            <td>
+                                                <div class="main__table-text"><a href="{% url "movie-details" movies.pk %}">{{movies.title}}</a></div>
+                                            </td>
+                                            <td>
+                                                <div class="main__table-text">{{movies.movie_categories}}</div>
+                                            </td>
+                                            <td>
+                                                <div class="main__table-text main__table-text--rate"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg> {{movies.rating}}</div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end dashbox -->
+
+                    <!-- dashbox -->
+                    <div class="col-12 col-xl-6">
+                        <div class="dashbox">
+                            <div class="dashbox__title">
+                                <h3><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg> Latest reviews</h3>
+
+                                <div class="dashbox__wrap">
+                                    <a class="dashbox__refresh" href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,11a1,1,0,0,0-1,1,8.05,8.05,0,1,1-2.22-5.5h-2.4a1,1,0,0,0,0,2h4.53a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4.77A10,10,0,1,0,22,12,1,1,0,0,0,21,11Z"></path></svg></a>
+                                    <a class="dashbox__more" href="#">View All</a>
+                                </div>
+                            </div>
+
+                            <div class="dashbox__table-wrap dashbox__table-wrap--2">
+                                <table class="main__table main__table--dash">
+                                    <thead>
+                                        <tr>
+                                            <th>MOVIES</th>
+                                            <th>TITLE</th>
+                                            <th>RATING</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for reviews in user_review %}
+                                        <tr>
+                                            <td>
+                                                <div class="main__table-text"><a href="{% url "movie-details" reviews.pk %}">{{reviews.movie.title}}</a></div>
+                                            </td>
+                                            <td>
+                                                <div class="main__table-text">{{reviews.title}}</div>
+                                            </td>
+                                            <td>
+                                                <div class="main__table-text main__table-text--rate"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg> {{reviews.rating}}</div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end dashbox -->
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="2-tab">
+                <div class="row">
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Action</a>
+                                    <a href="#">Triler</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover2.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Benched</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover3.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Whitney</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Romance</a>
+                                    <a href="#">Drama</a>
+                                    <a href="#">Music</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover4.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Blindspotting</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                    <a href="#">Drama</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover5.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Action</a>
+                                    <a href="#">Triler</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover6.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Benched</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover6.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Whitney</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Romance</a>
+                                    <a href="#">Drama</a>
+                                    <a href="#">Music</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover5.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Blindspotting</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                    <a href="#">Drama</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover4.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Action</a>
+                                    <a href="#">Triler</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover3.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Benched</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover2.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Whitney</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Romance</a>
+                                    <a href="#">Drama</a>
+                                    <a href="#">Music</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Blindspotting</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                    <a href="#">Drama</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="3-tab">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="sign__wrap">
+                            <div class="row">
+                                <!-- details form -->
+                                <div class="col-12 col-lg-6">
+                                    <form class="sign__form sign__form--profile sign__form--first" method="POST">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h4 class="sign__title">Profile details</h4>
+                                            </div>
+                                            <input type="hidden" name="action" value="update_profile">
+
+                                            <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+                                                <div class="sign__group">
+                                                    <label class="sign__label" for="username">Login</label>
+                                                    <input id="username" type="text" name="username" class="sign__input__profile" placeholder="User123">
+                                                    <div id="username-error" class="error-message"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+                                                <div class="sign__group">
+                                                    <label class="sign__label" for="email">Email</label>
+                                                    <input id="email" type="text" name="email" class="sign__input__profile" placeholder="email@email.com">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+                                                <div class="sign__group">
+                                                    <label class="sign__label" for="firstname">First name</label>
+                                                    <input id="firstname" type="text" name="firstname" class="sign__input__profile" placeholder="John">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+                                                <div class="sign__group">
+                                                    <label class="sign__label" for="lastname">Last name</label>
+                                                    <input id="lastname" type="text" name="lastname" class="sign__input__profile" placeholder="Doe">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <button class="sign__btn" type="submit">Save</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- end details form -->
+
+                                <!-- password form -->
+                                <div class="col-12 col-lg-6">
+                                    <form class="sign__form sign__form--profile" method="POST">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h4 class="sign__title">Change password</h4>
+                                            </div>
+                                            <input type="hidden" name="action" value="change_password">
+                                            <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+                                                <div class="sign__group">
+                                                    <label class="sign__label" for="oldpass">Old password</label>
+                                                    <input id="oldpass" type="password" name="oldpass" class="sign__input__profile" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+                                                <div class="sign__group">
+                                                    <label class="sign__label" for="newpass">New password</label>
+                                                    <input id="newpass" type="password" name="newpass" class="sign__input__profile" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+                                                <div class="sign__group">
+                                                    <label class="sign__label" for="confirmpass">Confirm new password</label>
+                                                    <input id="confirmpass" type="password" name="confirmpass" class="sign__input__profile" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <button class="sign__btn" type="submit">Change</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- end password form -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="tab-4" role="tabpanel" aria-labelledby="4-tab">
+                <div class="row">
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Action</a>
+                                    <a href="#">Triler</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover3.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Benched</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover2.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Whitney</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Romance</a>
+                                    <a href="#">Drama</a>
+                                    <a href="#">Music</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover6.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Blindspotting</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                    <a href="#">Drama</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover4.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Action</a>
+                                    <a href="#">Triler</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover5.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Benched</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover6.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Whitney</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Romance</a>
+                                    <a href="#">Drama</a>
+                                    <a href="#">Music</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover5.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Blindspotting</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                    <a href="#">Drama</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover4.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Action</a>
+                                    <a href="#">Triler</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover3.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Benched</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover2.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Whitney</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Romance</a>
+                                    <a href="#">Drama</a>
+                                    <a href="#">Music</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+
+                    <!-- card -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Blindspotting</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                    <a href="#">Drama</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div>
+            </div>
+        </div>
+        <!-- end content tabs -->
+    </div>
+</section>
+<!-- end content -->
+ 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('username').addEventListener('input', function() {
+            var username = this.value;
+            var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+            
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var data = JSON.parse(this.responseText);
+                    if (data.exists) {
+                        // Username is taken, display error message
+                        document.getElementById('username-error').textContent = 'This username is already taken.';
+                    } else {
+                        // Username is available, clear error message
+                        document.getElementById('username-error').textContent = '';
+                    }
+                }
+            };
+            
+            xhttp.open("POST", 'account/check_username', true);
+            xhttp.setRequestHeader('Content-Type', 'application/json');
+            xhttp.setRequestHeader('X-CSRFToken', csrfToken);
+            
+            var params = JSON.stringify({
+                'username': username
+            });
+            
+            xhttp.send(params);
+        });
+    });
+    
+            
+</script>
+{% endblock content %}

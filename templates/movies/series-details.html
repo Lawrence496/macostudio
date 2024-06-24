@@ -1,0 +1,310 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+	<!-- details -->
+	<section class="section details">
+		<!-- details background -->
+		<div class="details__bg" data-bg="img/home/home__bg.jpg"></div>
+		<!-- end details background -->
+
+		<!-- details content -->
+		<div class="container">
+			<div class="row">
+				<!-- title -->
+				<div class="col-12">
+					<h1 class="details__title">{{series_detail.title}}</h1>
+				</div>
+				<!-- end title -->
+
+				<!-- content -->
+				<div class="col-10">
+					<div class="card card--details card--series">
+						<div class="row">
+							<!-- card cover -->
+							<div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+								<div class="card__cover">
+									<img src="https://image.tmdb.org/t/p/w500{{ series_detail.poster_url }}" alt="">
+								</div>
+							</div>
+							<!-- end card cover -->
+
+							<!-- card content -->
+							<div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+								<div class="card__content">
+									<div class="card__wrap">
+										<span class="card__rate"><i class="icon ion-ios-star"></i>{{series_detail.rating}}</span>
+
+										<ul class="card__list">
+											<li>HD</li>
+											<li>16+</li>
+                                            <li>{{series_detail.movie_categories}}</li>
+										</ul>
+									</div>
+
+									<ul class="card__meta">
+										<li><span>Genre:</span>{% for category in series_detail.categories.all  %} <a href="#">{{category.category}}</a>{% endfor %}</li>
+										<li><span>Release year:</span>{{series_detail.first_air_date}}</li>
+                                        <li><span>Number of Seasons:</span>{{series_detail.number_of_seasons}}</li>
+                                        <li><span>Number of Episodes:</span>{{series_detail.number_of_episodes}}</li>
+									</ul>
+
+									<div class="card__description card__description--details">
+										{{series_detail.description}}
+									</div>
+								</div>
+							</div>
+							<!-- end card content -->
+						</div>
+					</div>
+				</div>
+				<!-- end content -->
+
+				<!-- player -->
+				<div class="col-12 col-xl-6">
+					<video controls crossorigin playsinline poster="../../../cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" id="player">
+						<!-- Video files -->
+						<source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" type="video/mp4" size="576">
+						<source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4" type="video/mp4" size="720">
+						<source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4" type="video/mp4" size="1080">
+						<source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1440p.mp4" type="video/mp4" size="1440">
+
+						<!-- Caption files -->
+						<track kind="captions" label="English" srclang="en" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
+						    default>
+						<track kind="captions" label="Français" srclang="fr" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt">
+
+						<!-- Fallback for browsers that don't support the <video> element -->
+						<a href="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" download>Download</a>
+					</video>
+				</div>
+				<!-- end player -->
+
+				<!-- accordion -->
+				<div class="col-12 col-xl-6">
+                    <div class="accordion" id="accordion">
+                        {% for season_number, episodes in sorted_seasons %}
+                        <div class="accordion__card">
+                            <div class="card-header" id="heading{{season_number | apnumber }}">
+                                <button class="collapsed" type="button" data-toggle="collapse" data-target="#collapse{{ season_number|apnumber }}" aria-expanded="false" aria-controls="collapse{{ season_number|apnumber }}">
+                                    <span>Season: {{ season_number }}</span>
+                                    <span>{{ episodes|length }} Episodes</span>
+                                </button>
+                            </div>
+                            <div id="collapse{{ season_number|apnumber }}" class="collapse" aria-labelledby="heading{{ season_number|apnumber }}" data-parent="#accordion">
+                                <div class="card-body">
+                                    <table class="accordion__list table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Title</th>
+                                                <th>Air Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for episode in episodes %}
+                                            <tr>
+                                                <th>{{ episode.episode_number }}</th>
+                                                <td>{{ episode.title }}</td>
+                                                <td>{{ episode.air_date|date:"l, F jS, Y" }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+				<!-- end accordion -->
+
+				<div class="col-12">
+					<div class="details__wrap">
+						<!-- availables -->
+						<div class="details__devices">
+							<span class="details__devices-title">Available on devices:</span>
+							<ul class="details__devices-list">
+								<li><i class="icon ion-logo-apple"></i><span>IOS</span></li>
+								<li><i class="icon ion-logo-android"></i><span>Android</span></li>
+								<li><i class="icon ion-logo-windows"></i><span>Windows</span></li>
+								<li><i class="icon ion-md-tv"></i><span>Smart TV</span></li>
+							</ul>
+						</div>
+						<!-- end availables -->
+
+						<!-- share -->
+						<div class="details__share">
+							<span class="details__share-title">Share with friends:</span>
+
+							<ul class="details__share-list">
+								<li class="facebook"><a href="https://facebook.com"><i class="icon ion-logo-facebook"></i></a></li>
+								<li class="instagram"><a href="https://instagram.com"><i class="icon ion-logo-instagram"></i></a></li>
+								<li class="twitter"><a href="https://x.com"><i class="icon ion-logo-twitter"></i></a></li>
+							</ul>
+						</div>
+						<!-- end share -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end details content -->
+	</section>
+	<!-- end details -->
+
+	<section class="content">
+        <div class="content__head">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- content title -->
+                        <h2 class="content__title">Discover</h2>
+                        <!-- end content title -->
+    
+                        <!-- content tabs nav -->
+                        <ul class="nav nav-tabs content__tabs" id="content__tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Reviews</a>
+                            </li>
+    
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Screenshots</a>
+                            </li>
+                        </ul>
+                        <!-- end content tabs nav -->
+    
+                        <!-- content mobile tabs nav -->
+                        <div class="content__mobile-tabs" id="content__mobile-tabs">
+                            <div class="content__mobile-tabs-btn dropdown-toggle" role="navigation" id="mobile-tabs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <input type="button" value="Reviews">
+                                <span></span>
+                            </div>
+    
+                            <div class="content__mobile-tabs-menu dropdown-menu" aria-labelledby="mobile-tabs">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item"><a class="nav-link active" id="1-tab" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Reviews</a></li>
+    
+                                    <li class="nav-item"><a class="nav-link" id="2-tab" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Screenshots</a></li>
+    
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- end content mobile tabs nav -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8 col-xl-8">
+                    <!-- content tabs -->
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
+                            <div class="row">
+                                <!-- reviews -->
+                                <div class="col-12">
+                                    <div class="reviews">
+                                        {% if reviews %}
+                                        <ul class="reviews__list">
+                                            {% for review in reviews %}
+                                                    <li class="reviews__item">
+                                                        <div class="reviews__autor">
+                                                            <img class="reviews__avatar" src="{% static "img/user.png" %}" alt="">
+                                                            <span class="reviews__name">{{review.title}}</span>
+                                                            <span class="reviews__time">{{review.created_at}} by {{review.user}}</span>
+    
+                                                            <span class="reviews__rating"><i class="icon ion-ios-star"></i>{{review.rating}}</span>
+                                                        </div>
+                                                        <p class="reviews__text">{{review.review}}</p>
+                                                    </li>     
+                                            {% endfor %}
+                                        </ul>
+                                        {% else %}
+                                        <li class="reviews__item">
+                                            <p class="reviews__text">No reviews yet</p>
+                                        </li>     
+                                        {% endif %}
+    
+                                        <form class="form" method="POST">
+                                            {% csrf_token %}
+                                            <input type="text" class="form__input" placeholder="Title" name="title" required>
+                                            <textarea class="form__textarea" placeholder="Review" name="review" required></textarea>
+                                            <input type="hidden" id='rating_input' name='rating' />
+                                            <div class="form__slider">
+                                                <div class="form__slider-rating" id="slider__rating"></div>
+                                                <div class="form__slider-value" id="form__slider-value"></div>
+                                            </div>
+                                            <button type="submit" class="form__btn">Send</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- end reviews -->
+                            </div>
+                        </div>
+    
+                        <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="2-tab">
+                            <!-- project gallery -->
+                            <div class="gallery">
+                                <div class="row">
+                                    <!-- gallery item -->
+                                     {% for urls in series_detail.screenshot_urls|slice:":15" %}
+                                    <figure class="col-12 col-sm-6 col-xl-4">
+                                        <a href="{{urls}}" class="popup-link">
+                                            <img src="{{urls}}" alt="Image description" />
+                                        </a>
+                                        <figcaption itemprop="caption description">Images from TMDb for {{series_detail.title}}</figcaption>
+                                    </figure>
+                                    {% endfor %}
+                                    <!-- end gallery item -->
+                                </div>
+                            </div>
+                            <!-- end project gallery -->
+                        </div>
+    
+                        <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="3-tab">
+                            
+                        </div>
+                    </div>
+                    <!-- end content tabs -->
+                </div>
+    
+                <!-- sidebar -->
+                <div class="col-12 col-lg-4 col-xl-4">
+                    <div class="row">
+                        <!-- section title -->
+                        <div class="col-12">
+                            <h2 class="section__title section__title--sidebar">You may also like...</h2>
+                        </div>
+                        <!-- end section title -->
+    
+                        <!-- card -->
+                         {% for recommended_movie in recommended_series %}
+                        <div class="col-6 col-sm-4 col-lg-6">
+                            <div class="card">
+                                <div class="card__cover">
+                                    <img src="{{recommended_movie.poster_url}}" alt="">
+                                    <a href="{% url "series-details" recommended_movie.pk %}" class="card__play">
+                                        <i class="icon ion-ios-play"></i>
+                                    </a>
+                                </div>
+                                <div class="card__content">
+                                    <h3 class="card__title"><a href="{% url "series-details" recommended_movie.pk %}">{{recommended_movie.title}}</a></h3>
+                                    {% for category in recommended_movie.categories.all %}
+                                    <span class="card__category">
+                                        <a href="#">{{ category.category }} {% if not forloop.last %},{% endif %}</a>
+                                    </span>
+                                    {% endfor %}
+                                    <span class="card__rate"><i class="icon ion-ios-star"></i>{{recommended_movie.rating}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <!-- end card -->
+                    </div>
+                </div>
+                <!-- end sidebar -->
+            </div>
+        </div>
+    </section>
+{% endblock content %}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<section class="section section--first section--bg" data-bg="{% static "img/section/section.jpg" %}" style="margin-bottom: 40px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section__wrap">
+                    <!-- section title -->
+                    <h2 class="section__title">Cartoons</h2>
+                    <!-- end section title -->
+
+                    <!-- breadcrumb -->
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb__item"><a href="{% url "index" %}">Home</a></li>
+                        <li class="breadcrumb__item breadcrumb__item--active">Cartoons</li>
+                    </ul>
+                    <!-- end breadcrumb -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end page title -->
+
+<!-- catalog -->
+<div class="catalog">
+    <div class="container">
+        <div class="row">
+            <!-- card -->
+            {% for movie in page %}
+            <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                    <div class="card">
+                        <div class="card__cover">
+                            <img src="{{movie.poster_url}}" alt="">
+                            <a href="{% url "movie-details" movie.pk %}" class="card__play">
+                                <i class="icon ion-ios-play"></i>
+                            </a>
+                        </div>
+                        <div class="card__content">
+                            <h3 class="card__title"><a href="{% url "movie-details" movie.pk %}">{{movie.title}}</a></h3>
+                            {% for category in movie.categories.all %}
+                                <span class="card__category">
+                                    <a href="#">{{ category.category }}{% if not forloop.last %},{% endif %}</a>
+                                </span>
+                            {% endfor %}
+                            <span class="card__rate"><i class="icon ion-ios-star"></i>{{movie.rating}}</span>
+                        </div>
+                    </div>
+            </div>
+            {% endfor %}
+            <!-- end card -->
+
+            <!-- paginator -->
+            {% if page.paginator.num_pages > 1 %}
+            <div class="col-12">
+                <ul class="paginator">
+                    {% if page.has_previous %}
+                        <li class="paginator__item paginator__item--prev">
+                            <a href="?page={{ page.previous_page_number }}"><i class="icon ion-ios-arrow-back"></i></a>
+                        </li>
+                    {% else %}
+                        <li class="paginator__item paginator__item--prev">
+                            <a href="#"><i class="icon ion-ios-arrow-back"></i></a>
+                        </li>
+                    {% endif %}
+        
+                    {% for i in page.paginator.page_range %}
+                        {% if i < page.paginator.num_pages|sub:2 %}
+                            <li class="paginator__item"><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% elif i == page.number %}
+                            <li class="paginator__item paginator__item--active"><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% else %}
+                            <li class="paginator__item paginator__item--ellipsis"><span>&hellip;</span></li>
+                        {% endif %}
+                    {% endfor %}
+        
+                    {% if page.has_next %}
+                        <li class="paginator__item paginator__item--next">
+                            <a href="?page={{ page.next_page_number }}"><i class="icon ion-ios-arrow-forward"></i></a>
+                        </li>
+                    {% else %}
+                        <li class="paginator__item paginator__item--next">
+                            <a href="#"><i class="icon ion-ios-arrow-forward"></i></a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+        
+        
+            <!-- end paginator -->
+        </div>
+    </div>
+</div>
+<!-- end catalog -->
+
+{% endblock content %}
