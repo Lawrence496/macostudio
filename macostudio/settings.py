@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'pages',
     'movies',
     'mathfilters',
-    'whitenoise',
+    'whitenoise.runserver_nostatic',
     'rest_framework',
     'django.contrib.humanize',
     'django.contrib.admin',
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'movies.middleware.CustomAuthenticationMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -145,9 +146,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'macostudio/static')]
-
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'macostudio/static'),
+]
+ 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
