@@ -29,7 +29,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-23f+e=s!9hfv4m+ki_$+v$#0il857&nang0ll8*4dcw43-r27d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+<<<<<<< HEAD
 DEBUG = os.getenv('DEBUG') == 'True'
+=======
+DEBUG = True
+>>>>>>> eb9b7949c33e331b24fa64f426fb8efc2dafff20
 
 ALLOWED_HOSTS = ['macostudio.up.railway.app']
 
@@ -42,6 +46,7 @@ INSTALLED_APPS = [
     'pages',
     'movies',
     'mathfilters',
+    'whitenoise.runserver_nostatic',
     'rest_framework',
     'django.contrib.humanize',
     'django.contrib.admin',
@@ -53,9 +58,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'movies.middleware.CustomAuthenticationMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'movies.middleware.TimezoneMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -151,9 +156,14 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'macostudio/static'),
+<<<<<<< HEAD
     ]
 
 
+=======
+]
+ 
+>>>>>>> eb9b7949c33e331b24fa64f426fb8efc2dafff20
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
