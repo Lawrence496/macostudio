@@ -8,7 +8,7 @@ class Command(BaseCommand):
     help = 'Updating ratings and genres for Series from TMDb'
 
     def handle(self, *args, **kwargs):
-        api_key = '2af8f53d7614f389368f9ee77ab3d464'
+        api_key = '***********************'
         series = Series.objects.all()
 
         for series_obj in series:

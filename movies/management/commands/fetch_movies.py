@@ -8,7 +8,7 @@ class Command(BaseCommand):
     help = 'Fetches and stores movies and their categories from the TMDb API'
 
     def handle(self, *args, **kwargs):
-        api_key = '2af8f53d7614f389368f9ee77ab3d464'
+        api_key = '***************************'
         
         def parse_date(date_str):
             if not date_str:

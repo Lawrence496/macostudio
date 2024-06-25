@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-23f+e=s!9hfv4m+ki_$+v$#0il857&nang0ll8*4dcw43-r27d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DEBUG') == 'True'
 
 ALLOWED_HOSTS = ['macostudio.up.railway.app']
 
@@ -94,12 +98,12 @@ WSGI_APPLICATION = 'macostudio.wsgi.application'
 
 DATABASES = {
     'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'AtrHGyrMRCkyZFTZEYMtfgSKFzfeEcqY',
-        'HOST': 'roundhouse.proxy.rlwy.net',
-        'PORT': '49822',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
@@ -145,7 +149,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'macostudio/static')]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'macostudio/static'),
+    ]
 
 
 # Default primary key field type
