@@ -54,19 +54,14 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'movies.middleware.CustomAuthenticationMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'movies.middleware.TimezoneMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'accounts.middleware.RestrictAdminMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',             
+    'whitenoise.middleware.WhiteNoiseMiddleware',                 'django.contrib.sessions.middleware.SessionMiddleware',      
+    'django.middleware.common.CommonMiddleware',                 
+    'django.middleware.csrf.CsrfViewMiddleware',                  'django.contrib.auth.middleware.AuthenticationMiddleware', 
+    'movies.middleware.CustomAuthenticationMiddleware',          
+    'movies.middleware.TimezoneMiddleware',                      
+    'accounts.middleware.RestrictAdminMiddleware',               
+ 'django.contrib.messages.middleware.MessageMiddleware',       'django.middleware.clickjacking.XFrameOptionsMiddleware',    
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
