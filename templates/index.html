@@ -254,6 +254,7 @@
 <!-- end content -->
 
 <!-- Recomended -->
+{% if user.is_authenticated %}
 <section class="section section--bg" data-bg="img/section/section.jpg">
     <div class="container">
         <div class="row">
@@ -337,7 +338,7 @@
         </div>
     </div>
 </section>
-
+{% endif %}
 <!-- expected premiere -->
 <section class="section section--bg" data-bg="img/section/section.jpg">
     <div class="container">
