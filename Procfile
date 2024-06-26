@@ -1,0 +1,1 @@
+web: gunicorn macostudio.wsgi --log-file -

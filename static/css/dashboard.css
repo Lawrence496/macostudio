@@ -1,0 +1,153 @@
+.profile-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background-color: #2b2b31;
+    color: #fff;
+}
+
+/* Profile header */
+.profile-header {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #444;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-details {
+    flex: 1;
+}
+
+.profile-name {
+    font-size: 2em;
+    margin: 0;
+}
+
+.profile-username {
+    color: #b491c5;
+}
+
+.edit-profile-btn {
+    background: linear-gradient(90deg, #161b85 0%, #b491c5 100%);
+    border: none;
+    padding: 10px 20px;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 25px;
+}
+
+.edit-profile-btn:hover {
+    opacity: 0.8;
+}
+
+/* Profile sections */
+.profile-sections {
+    margin-top: 20px;
+}
+
+.profile-section {
+    margin-bottom: 30px;
+}
+
+.profile-section h2 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    border-bottom: 2px solid #444;
+    padding-bottom: 5px;
+}
+
+/* Movie grid */
+.movies-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.movie-item {
+    background-color: #3b3b43;
+    border-radius: 10px;
+    overflow: hidden;
+    width: calc(33.333% - 20px);
+    box-sizing: border-box;
+}
+
+.movie-item img {
+    width: 100%;
+    display: block;
+}
+
+.movie-info {
+    padding: 10px;
+}
+
+.movie-info h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.movie-info p {
+    margin: 5px 0 0;
+    color: #b3b3b3;
+}
+
+/* Edit Profile Form */
+.edit-profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.edit-profile-form label {
+    font-weight: bold;
+}
+
+.edit-profile-form input,
+.edit-profile-form textarea {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #444;
+    color: #fff;
+}
+
+.edit-profile-form button {
+    background: linear-gradient(90deg, #161b85 0%, #b491c5 100%);
+    border: none;
+    padding: 10px 20px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.edit-profile-form button:hover {
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-picture {
+        margin-bottom: 20px;
+    }
+
+    .movies-grid {
+        flex-direction: column;
+    }
+
+    .movie-item {
+        width: 100%;
+    }
+}

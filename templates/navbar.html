@@ -1,0 +1,120 @@
+	{% load static %}
+    <!-- header -->
+	<header class="header">
+		<div class="header__wrap">
+<p style="color: white"> Designed and Developed by Anyalechi Lawrence <a href="https://github.com/Lawrence496/macostudio/tree/master"><i class="icon ion-logo-github"></i></a></p>	
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="header__content">
+							<!-- header logo -->
+							<a href="{% url "index" %}" class="header__logo">
+								<img src="{% static "img/logo.svg" %}" alt="">
+							</a>
+							<!-- end header logo -->
+
+							<!-- header nav -->
+							<ul class="header__nav">
+								<!-- dropdown -->
+								<li class="header__nav-item">
+									<a href="{% url "index" %}" class="header__nav-link">Home</a>
+								</li>
+								<!-- end dropdown -->
+
+								<!-- dropdown -->
+								<li class="header__nav-item">
+									<a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuCatalog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
+
+									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCatalog">
+										<li><a href="{% url "movies" %}">Movies</a></li>
+										<li><a href="{% url "series" %}">Series</a></li>
+										<li><a href="{% url "cartoons" %}">Cartoon</a></li>
+									</ul>
+								</li>
+								<!-- end dropdown -->
+
+								<li class="header__nav-item">
+									<a href="{% url "pricing" %}" class="header__nav-link">Pricing Plan</a>
+								</li>
+
+								<li class="header__nav-item">
+									<a href="{% url "faq" %}" class="header__nav-link">Help</a>
+								</li>
+
+								<!-- dropdown -->
+								<li class="dropdown header__nav-item">
+									<a class="dropdown-toggle header__nav-link header__nav-link--more" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon ion-ios-more"></i></a>
+
+									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
+										<li><a href="{% url "about" %}">About</a></li>
+                                        {% if user.is_authenticated %}
+                                        {% else %}
+                                        <li><a href="{% url "signin" %}">Sign In</a></li>
+										<li><a href="{% url "signup" %}">Sign Up</a></li>
+                                        {% endif %}
+									</ul>
+								</li>
+								<!-- end dropdown -->
+							</ul>
+							<!-- end header nav -->
+
+							<!-- header auth -->
+							<div class="header__auth">
+								<button class="header__search-btn" type="button">
+									<i class="icon ion-ios-search"></i>
+								</button>
+
+                                {% if user.is_authenticated %}
+                                <li class="header__nav-item">
+									<a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="icon ion-md-person" style="color: white; margin-left: 20px"></span> Welcome, {{ user.username }}</a>
+
+									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuUser">
+										<li><a href="{% url "profile" %}">Profile</a></li>
+										<li><a href="javascript: {document.getElementById('signout').submit()}">Log out</a></li>
+                                        <form action="{% url "signout" %}" method="POST" id="signout">
+                                            {% csrf_token %}
+                                            <input type="hidden" />
+                                        </form>
+									</ul>
+								</li>
+                                {% else %}
+                                <a href="{% url "signin" %}" class="header__sign-in">
+									<i class="icon ion-ios-log-in"></i>
+									<span>sign in</span>
+								</a>
+                                {% endif %}
+								
+							</div>
+							<!-- end header auth -->
+
+							<!-- header menu btn -->
+							<button class="header__btn" type="button">
+								<span></span>
+								<span></span>
+								<span></span>
+							</button>
+							<!-- end header menu btn -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- header search -->
+		<form action="{% url 'search' %}" method="GET" class="header__search">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="header__search-content">
+							<input type="text" name="query" placeholder="Search for a movie, TV Series that you are looking for">
+		
+							<button type="submit">Search</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		
+		<!-- end header search -->
+	</header>
+	<!-- end header -->
