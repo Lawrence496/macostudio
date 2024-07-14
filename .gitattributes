@@ -1,2 +1,10 @@
-static/* 
-templates/* 
+# Exclude directories
+static/* linguist-vendored
+macostudio/static/* linguist-vendored
+
+# Specify language for certain files
+*.css linguist-language=CSS
+*.json linguist-language=JSON
+
+# Ignore minified JavaScript files
+*.min.js linguist-vendored
