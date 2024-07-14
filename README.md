@@ -18,6 +18,9 @@ Here are some screenshots of the app in action:
 ![Home Page](home.png)
 *Home Page*
 
+![AI Page](ai.png)
+*AI Page*
+
 ![Profile Page](profile.png)
 *Profile Page*
 
