@@ -1,6 +1,6 @@
 # macostudios
 
-macostudios is an intelligent movie and series recommendation app that leverages AI to display users' favorite movies and series based on their choices. The app is built primarily with Django and utilizes a PostgreSQL database.
+macostudios is an intelligent movie and series recommendation app that uses AI to display users' favorite movies and series based on their choices. The app is built primarily with Django and utilizes a PostgreSQL database.
 
 ## Features
 
