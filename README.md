@@ -15,7 +15,7 @@ macostudios is an intelligent movie and series recommendation app that uses AI t
 
 Here are some screenshots of the app in action:
 
-![Home Page](home_page.png)
+![Home Page](home.png)
 *Home Page*
 
 ![Profile Page](profile.png)
@@ -23,6 +23,9 @@ Here are some screenshots of the app in action:
 
 ![Recommendations](recommended.png)
 *Recommendations*
+
+![Movies](movies.png)
+*Movies*
 
 ## Technologies Used
 
