@@ -1,6 +1,6 @@
 # Exclude directories
-static/* linguist-vendored
-macostudio/static/* linguist-vendored
+static/css* linguist-vendored
+macostudio/static/css* linguist-vendored
 
 # Specify language for certain files
 *.css linguist-language=CSS
